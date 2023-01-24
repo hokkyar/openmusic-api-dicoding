@@ -2,7 +2,6 @@ const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 const InvariantError = require('../../exceptions/InvariantError')
 const NotFoundError = require('../../exceptions/NotFoundError')
-const { mapAlbumsDBToModel } = require('../../utils/albums')
 
 class AlbumsService {
   constructor() {
@@ -11,12 +10,10 @@ class AlbumsService {
 
   async addAlbum({ name, year }) {
     const id = nanoid(16)
-    const createdAt = new Date().toISOString()
-    const updatedAt = createdAt
 
     const query = {
-      text: 'INSERT INTO albums VALUES($1, $2, $3, $4, $5) RETURNING id',
-      values: [id, name, year, createdAt, updatedAt],
+      text: 'INSERT INTO albums VALUES($1, $2, $3) RETURNING id',
+      values: [id, name, year],
     }
     const result = await this._pool.query(query)
     if (!result.rows[0].id) {
@@ -26,22 +23,33 @@ class AlbumsService {
   }
 
   async getAlbumById(id) {
-    const query = {
+    const queryAlbum = {
       text: 'SELECT * FROM albums WHERE id = $1',
       values: [id],
     }
-    const result = await this._pool.query(query)
-    if (!result.rows.length) {
+    const resultAlbum = await this._pool.query(queryAlbum)
+    if (!resultAlbum.rows.length) {
       throw new NotFoundError('Album tidak ditemukan')
     }
-    return result.rows.map(mapAlbumsDBToModel)[0]
+
+    const querySongInAlbum = {
+      text: 'SELECT id, title, performer FROM songs WHERE album_id = $1',
+      values: [id],
+    }
+    const resultSong = await this._pool.query(querySongInAlbum)
+
+    const result = {
+      ...resultAlbum.rows[0],
+      songs: resultSong.rows
+    }
+
+    return result
   }
 
   async editAlbumById(id, { name, year }) {
-    const updatedAt = new Date().toISOString()
     const query = {
-      text: 'UPDATE albums SET name=$1, year=$2, updated_at=$3 WHERE id=$4 RETURNING id',
-      values: [name, year, updatedAt, id],
+      text: 'UPDATE albums SET name=$1, year=$2 WHERE id=$3 RETURNING id',
+      values: [name, year, id],
     }
     const result = await this._pool.query(query)
     if (!result.rows.length) {

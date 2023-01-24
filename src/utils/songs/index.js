@@ -15,7 +15,7 @@ const mapSongsDBToModel = ({
   genre,
   performer,
   duration,
-  album_id,
+  albumId: album_id,
   createdAt: created_at,
   updatedAt: updated_at,
 })
