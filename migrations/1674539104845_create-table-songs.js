@@ -6,32 +6,32 @@ exports.up = pgm => {
   pgm.createTable('songs', {
     id: {
       type: 'VARCHAR(50)',
-      primaryKey: true,
+      primaryKey: true
     },
     title: {
       type: 'TEXT',
-      notNull: true,
+      notNull: true
     },
     year: {
       type: 'INTEGER',
-      notNull: true,
+      notNull: true
     },
     genre: {
       type: 'TEXT',
-      notNull: true,
+      notNull: true
     },
     performer: {
       type: 'TEXT',
-      notNull: true,
+      notNull: true
     },
     duration: {
       type: 'INTEGER',
-      notNull: false,
+      notNull: false
     },
     album_id: {
       type: 'VARCHAR(50)',
-      notNull: false,
-    },
+      notNull: false
+    }
   })
 }
 

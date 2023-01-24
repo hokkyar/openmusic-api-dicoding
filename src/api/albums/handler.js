@@ -11,7 +11,7 @@ class AlbumsHandler {
       status: 'success',
       message: 'Album berhasil ditambahkan',
       data: {
-        albumId,
+        albumId
       }
     }).code(201)
   }
@@ -33,7 +33,7 @@ class AlbumsHandler {
     await this._service.editAlbumById(id, request.payload)
     return {
       status: 'success',
-      message: 'Album berhasil diperbarui',
+      message: 'Album berhasil diperbarui'
     }
   }
 
@@ -42,7 +42,7 @@ class AlbumsHandler {
     await this._service.deleteAlbumById(id)
     return {
       status: 'success',
-      message: 'Album berhasil dihapus',
+      message: 'Album berhasil dihapus'
     }
   }
 }

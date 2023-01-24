@@ -11,7 +11,7 @@ class SongsHandler {
       status: 'success',
       message: 'Lagu berhasil ditambahkan',
       data: {
-        songId,
+        songId
       }
     }).code(201)
   }
@@ -43,7 +43,7 @@ class SongsHandler {
     await this._service.editSongById(id, request.payload)
     return {
       status: 'success',
-      message: 'Lagu berhasil diperbarui',
+      message: 'Lagu berhasil diperbarui'
     }
   }
 
@@ -52,10 +52,9 @@ class SongsHandler {
     await this._service.deleteSongById(id)
     return {
       status: 'success',
-      message: 'Lagu berhasil dihapus',
+      message: 'Lagu berhasil dihapus'
     }
   }
-
 }
 
 module.exports = SongsHandler

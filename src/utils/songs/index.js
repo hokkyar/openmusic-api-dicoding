@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+
 const mapSongsDBToModel = ({
   id,
   title,
@@ -17,7 +19,7 @@ const mapSongsDBToModel = ({
   duration,
   albumId: album_id,
   createdAt: created_at,
-  updatedAt: updated_at,
+  updatedAt: updated_at
 })
 
 module.exports = { mapSongsDBToModel }

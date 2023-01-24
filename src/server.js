@@ -22,16 +22,16 @@ const init = async () => {
     host: process.env.HOST,
     routes: {
       cors: {
-        origin: ['*'],
-      },
-    },
+        origin: ['*']
+      }
+    }
   })
 
   await server.register({
     plugin: albums,
     options: {
       service: albumsService,
-      validator: AlbumsValidator,
+      validator: AlbumsValidator
     }
   })
 
@@ -39,7 +39,7 @@ const init = async () => {
     plugin: songs,
     options: {
       service: songsService,
-      validator: SongsValidator,
+      validator: SongsValidator
     }
   })
 
@@ -49,7 +49,7 @@ const init = async () => {
       if (response instanceof ClientError) {
         const newResponse = h.response({
           status: 'fail',
-          message: response.message,
+          message: response.message
         })
         newResponse.code(response.statusCode)
         return newResponse
@@ -61,7 +61,7 @@ const init = async () => {
 
       const newResponse = h.response({
         status: 'error',
-        message: 'terjadi kegagalan pada server kami',
+        message: 'terjadi kegagalan pada server kami'
       })
       newResponse.code(500)
       return newResponse
@@ -70,8 +70,8 @@ const init = async () => {
     return h.continue
   })
 
-  await server.start();
-  console.log(`Server berjalan pada ${server.info.uri}`);
+  await server.start()
+  console.log(`Server berjalan pada ${server.info.uri}`)
 }
 
-init();
+init()

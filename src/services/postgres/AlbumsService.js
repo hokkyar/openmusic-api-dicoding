@@ -13,7 +13,7 @@ class AlbumsService {
 
     const query = {
       text: 'INSERT INTO albums VALUES($1, $2, $3) RETURNING id',
-      values: [id, name, year],
+      values: [id, name, year]
     }
     const result = await this._pool.query(query)
     if (!result.rows[0].id) {
@@ -25,7 +25,7 @@ class AlbumsService {
   async getAlbumById(id) {
     const queryAlbum = {
       text: 'SELECT * FROM albums WHERE id = $1',
-      values: [id],
+      values: [id]
     }
     const resultAlbum = await this._pool.query(queryAlbum)
     if (!resultAlbum.rows.length) {
@@ -34,7 +34,7 @@ class AlbumsService {
 
     const querySongInAlbum = {
       text: 'SELECT id, title, performer FROM songs WHERE album_id = $1',
-      values: [id],
+      values: [id]
     }
     const resultSong = await this._pool.query(querySongInAlbum)
 
@@ -49,7 +49,7 @@ class AlbumsService {
   async editAlbumById(id, { name, year }) {
     const query = {
       text: 'UPDATE albums SET name=$1, year=$2 WHERE id=$3 RETURNING id',
-      values: [name, year, id],
+      values: [name, year, id]
     }
     const result = await this._pool.query(query)
     if (!result.rows.length) {
@@ -60,7 +60,7 @@ class AlbumsService {
   async deleteAlbumById(id) {
     const query = {
       text: 'DELETE FROM albums WHERE id = $1 RETURNING id',
-      values: [id],
+      values: [id]
     }
     const result = await this._pool.query(query)
     if (!result.rows.length) {
