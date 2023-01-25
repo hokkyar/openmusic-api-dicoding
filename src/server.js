@@ -1,6 +1,5 @@
 require('dotenv').config()
 const ClientError = require('./exceptions/ClientError')
-
 const Hapi = require('@hapi/hapi')
 
 // albums
