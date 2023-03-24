@@ -28,7 +28,7 @@ class AlbumsService {
       values: [id]
     }
     const resultAlbum = await this._pool.query(queryAlbum)
-    if (!resultAlbum.rows.length) {
+    if (!resultAlbum.rowCount) {
       throw new NotFoundError('Album tidak ditemukan')
     }
 
