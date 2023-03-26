@@ -1,7 +1,8 @@
 class UploadsHandler {
-  constructor(service, validator) {
+  constructor(service, albumsService, validator) {
     this._service = service
     this._validator = validator
+    this._albumsService = albumsService
   }
 
   async postUploadImageCoverHandler(request, h) {
@@ -12,7 +13,7 @@ class UploadsHandler {
     const filename = await this._service.writeFile(cover, cover.hapi)
     const coverUrl = `http://${process.env.HOST}:${process.env.PORT}/upload/images/${filename}`
 
-    await this._service.editAlbumCover(coverUrl, albumId)
+    await this._albumsService.editAlbumCover(coverUrl, albumId)
 
     return h.response({
       status: 'success',
