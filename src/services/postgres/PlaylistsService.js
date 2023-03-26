@@ -81,7 +81,7 @@ class PlaylistsService {
     }
     const result = await this._pool.query(query)
     const songs = result.rows
-    return { name, username, songs }
+    return { playlist: { id: playlistId, name, username, songs } }
   }
 
   async deletePlaylistSongById(playlistId, songId, userId) {
