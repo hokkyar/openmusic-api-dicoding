@@ -103,12 +103,12 @@ class AlbumsService {
     }
 
     await this._pool.query(query)
-    await this._cacheService.delete(`albums-likes:${albumId}`)
+    await this._cacheService.delete(`album-likes:${albumId}`)
   }
 
   async getAlbumLike(albumId) {
     try {
-      const result = await this._cacheService.get(`albums-likes:${albumId}`)
+      const result = await this._cacheService.get(`album-likes:${albumId}`)
       return {
         likes: JSON.parse(result),
         cache: true
@@ -118,7 +118,7 @@ class AlbumsService {
         text: 'SELECT COUNT(id) AS likes FROM user_album_likes WHERE album_id = $1',
         values: [albumId]
       })
-      await this._cacheService.set(`albums-likes:${albumId}`, JSON.stringify(Number(rows[0].likes)))
+      await this._cacheService.set(`album-likes:${albumId}`, JSON.stringify(Number(rows[0].likes)))
       return {
         likes: Number(rows[0].likes),
         cache: false

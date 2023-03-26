@@ -11,7 +11,7 @@ class CollaborationsHandler {
     const { playlistId, userId } = request.payload
 
     await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId)
-    const collaborationId = await this._collaborationsService.addCollaboration(playlistId, userId)
+    const collaborationId = await this._collaborationsService.addCollaboration(playlistId, userId, credentialId)
 
     return h.response({
       status: 'success',
@@ -27,7 +27,7 @@ class CollaborationsHandler {
     const { id: credentialId } = request.auth.credentials
     const { playlistId, userId } = request.payload
     await this._playlistsService.verifyPlaylistOwner(playlistId, credentialId)
-    await this._collaborationsService.deleteCollaboration(playlistId, userId)
+    await this._collaborationsService.deleteCollaboration(playlistId, userId, credentialId)
 
     return {
       status: 'success',
